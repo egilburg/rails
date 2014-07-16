@@ -288,8 +288,8 @@ module ActionView
     def render_collection
       return nil if @collection.blank?
 
-      if @options.key?(:spacer_template)
-        spacer = find_template(@options[:spacer_template], @locals.keys).render(@view, @locals)
+      if @spacer_template_path
+        spacer = find_template(@spacer_template_path, @locals.keys).render(@view, @locals)
       end
 
       result = @template ? collection_with_template : collection_without_template
@@ -351,6 +351,8 @@ module ActionView
           @path = paths.uniq.one? ? paths.first : nil
 
           paths.map! { |path| retrieve_variable(path, as).unshift(path) } unless @path
+
+          @spacer_template_path = options[:spacer_template]
         else
           @path = partial_path
         end
