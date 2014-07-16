@@ -344,7 +344,10 @@ module ActionView
 
         if @collection
           paths = @collection_data = @collection.map { |o| partial_path(o) }
+
           @path = paths.uniq.one? ? paths.first : nil
+
+          paths.map! { |path| retrieve_variable(path, as).unshift(path) } unless @path
         else
           @path = partial_path
         end
@@ -353,8 +356,6 @@ module ActionView
       if @path
         @variable, @variable_counter = retrieve_variable(@path, as)
         @template_keys = retrieve_template_keys
-      else
-        paths.map! { |path| retrieve_variable(path, as).unshift(path) }
       end
 
       self
