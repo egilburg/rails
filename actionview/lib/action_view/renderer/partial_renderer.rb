@@ -329,9 +329,10 @@ module ActionView
       @locals  = options[:locals] || {}
       @details = extract_details(options)
 
-      prepend_formats(options[:formats])
-
+      as = extract_as(options)
       partial = options[:partial]
+
+      prepend_formats(options[:formats])
 
       if String === partial
         @object     = options[:object]
@@ -347,11 +348,6 @@ module ActionView
         else
           @path = partial_path
         end
-      end
-
-      if as = options[:as]
-        raise_invalid_identifier(as) unless as.to_s =~ /\A[a-z_]\w*\z/
-        as = as.to_sym
       end
 
       if @path
@@ -468,6 +464,14 @@ module ActionView
       keys << @variable         if @object || @collection
       keys << @variable_counter if @collection
       keys
+    end
+
+    def extract_as(options)
+      if as = options[:as]
+        raise_invalid_identifier(as) unless as.to_s =~ /\A[a-z_]\w*\z/
+
+        as.to_sym
+      end
     end
 
     def retrieve_variable(path, as)
