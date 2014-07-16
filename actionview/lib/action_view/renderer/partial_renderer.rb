@@ -285,6 +285,8 @@ module ActionView
       end
     end
 
+    private
+
     def render_collection
       return if @collection.blank?
 
@@ -314,8 +316,6 @@ module ActionView
       content = layout.render(view, locals){ content } if layout
       content
     end
-
-    private
 
     # Sets up instance variables needed for rendering a partial. This method
     # finds the options and details and extracts them. The method also contains
