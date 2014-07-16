@@ -341,7 +341,7 @@ module ActionView
 
         if @collection
           paths = @collection_data = @collection.map { |o| partial_path(o) }
-          @path = paths.uniq.size == 1 ? paths.first : nil
+          @path = paths.first if paths.uniq.one?
         else
           @path = partial_path
         end
