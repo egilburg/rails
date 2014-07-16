@@ -322,14 +322,15 @@ module ActionView
     # respond to +to_partial_path+ in order to setup the path.
     def setup(context, options, block)
       @view   = context
-      partial = options[:partial]
-
       @options = options
-      @locals  = options[:locals] || {}
       @block   = block
+
+      @locals  = options[:locals] || {}
       @details = extract_details(options)
 
       prepend_formats(options[:formats])
+
+      partial = options[:partial]
 
       if String === partial
         @object     = options[:object]
