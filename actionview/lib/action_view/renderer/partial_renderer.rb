@@ -373,9 +373,7 @@ module ActionView
     end
 
     def find_partial
-      if path = @path
-        find_template(path, @template_keys)
-      end
+      find_template(@path, @template_keys) if @path
     end
 
     def find_template(path, locals)
