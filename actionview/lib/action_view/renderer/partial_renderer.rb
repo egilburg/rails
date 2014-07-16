@@ -255,6 +255,7 @@ module ActionView
 
     def initialize(*)
       super
+
       @context_prefix = @lookup_context.prefixes.first
     end
 
@@ -380,6 +381,7 @@ module ActionView
 
     def find_template(path, locals)
       prefixes = path.include?(?/) ? [] : @lookup_context.prefixes
+
       @lookup_context.find_template(path, prefixes, true, locals, @details)
     end
 
@@ -474,7 +476,9 @@ module ActionView
         raise_invalid_identifier(path) unless base =~ /\A_?([a-z]\w*)(\.\w+)*\z/
         $1.to_sym
       end
+
       variable_counter = :"#{variable}_counter" if @collection
+
       [variable, variable_counter]
     end
 
