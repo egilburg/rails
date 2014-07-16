@@ -299,6 +299,10 @@ module RenderTestCases
     assert_equal "Hello: Anonymous", @controller_view.render('customer')
   end
 
+  def test_render_collection_template_without_path
+    assert_equal "hi good customer: david0", @controller_view.render([ GoodCustomer.new("david") ], :greeting => "hi")
+  end
+
   def test_render_partial_with_locals_using_string
     assert_equal "Hola: david", @controller_view.render('customer_greeting', :greeting => 'Hola', :customer_greeting => Customer.new("david"))
   end
