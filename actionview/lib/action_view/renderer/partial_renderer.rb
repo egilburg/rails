@@ -286,7 +286,7 @@ module ActionView
     end
 
     def render_collection
-      return nil if @collection.blank?
+      return if @collection.blank?
 
       if @spacer_template_path
         spacer = find_template(@spacer_template_path, @locals.keys).render(@view, @locals)
