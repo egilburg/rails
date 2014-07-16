@@ -261,7 +261,10 @@ module ActionView
 
     def render(context, options, block)
       setup(context, options, block)
-      identifier = (@template = find_partial) ? @template.identifier : @path
+
+      @template = find_partial
+
+      identifier = @template ? @template.identifier : @path
 
       @lookup_context.rendered_format ||= begin
         if @template && @template.formats.present?
