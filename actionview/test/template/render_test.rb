@@ -388,6 +388,14 @@ module RenderTestCases
     ActionView::Template.unregister_template_handler :foo
   end
 
+  def test_render_body
+    assert_equal 'some body', @view.render(:body => 'some body')
+  end
+
+  def test_render_plain
+    assert_equal 'some plaintext', @view.render(:plain => 'some plaintext')
+  end
+
   def test_render_knows_about_types_registered_when_extensions_are_checked_earlier_in_initialization
     ActionView::Template::Handlers.extensions
     ActionView::Template.register_template_handler :foo, CustomHandler
