@@ -391,10 +391,9 @@ module ActionView
         layout = find_template(layout, @template_keys)
       end
 
-      index = -1
-      @collection.map do |object|
+      @collection.map.with_index do |object, index|
         locals[as]      = object
-        locals[counter] = (index += 1)
+        locals[counter] = index
 
         content = template.render(view, locals)
         content = layout.render(view, locals) { content } if layout
@@ -407,9 +406,7 @@ module ActionView
       cache = {}
       keys  = @locals.keys
 
-      index = -1
-      @collection.map do |object|
-        index += 1
+      @collection.map.with_index do |object, index|
         path, as, counter = collection_data[index]
 
         locals[as]      = object
