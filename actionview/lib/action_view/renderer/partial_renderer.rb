@@ -333,12 +333,13 @@ module ActionView
 
       if String === partial
         @object     = options[:object]
-        @path       = partial
         @collection = collection_from_options
+        @path       = partial
       else
         @object = partial
+        @collection = collection_from_object || collection_from_options
 
-        if @collection = collection_from_object || collection_from_options
+        if @collection
           paths = @collection_data = @collection.map { |o| partial_path(o) }
           @path = paths.uniq.size == 1 ? paths.first : nil
         else
