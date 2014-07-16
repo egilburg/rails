@@ -351,12 +351,12 @@ module ActionView
           @path = paths.uniq.one? ? paths.first : nil
 
           paths.map! { |path| retrieve_variable(path, as).unshift(path) } unless @path
-
-          @spacer_template_path = options[:spacer_template]
         else
           @path = partial_path
         end
       end
+
+      @spacer_template_path = options[:spacer_template] if @collection
 
       if @path
         @variable, @variable_counter = retrieve_variable(@path, as)
